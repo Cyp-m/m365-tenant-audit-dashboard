@@ -8,7 +8,8 @@ A PowerShell collector signs in to the target tenant with a **Global Reader** ac
 ![Excel](https://img.shields.io/badge/Excel-Microsoft%20365-217346)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-> *Screenshot: `docs/dashboard-sample.png` (synthetic demo data)*
+> ![M365 Audit Dashboard — one-page view](docs/dashboard-sample.png)
+*Dashboard filled with synthetic demo data.*
 
 ---
 
