@@ -1,0 +1,13 @@
+# Tenant data & run outputs — never commit
+DATA/
+MANUAL/
+logs/
+*.msg
+
+# Reference material containing real data (originals, template, exports)
+reference/
+
+# Office temp/backup files
+~$*
+*.tmp
+*.bak
