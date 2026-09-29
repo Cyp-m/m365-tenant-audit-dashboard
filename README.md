@@ -1,14 +1,14 @@
 # M365 Tenant Audit Dashboard
 
 **One-click Microsoft 365 tenant audit for M&A due diligence.**
-A PowerShell collector signs in to the target tenant with a **Global Reader** account (read-only, no app registration required), gathers ~20 datasets across Entra ID, Exchange Online, SharePoint, OneDrive, Teams and Intune, and refreshes a **single-page Excel dashboard** where every KPI is a live formula — nothing is typed by hand.
+A PowerShell collector signs in to the target tenant with a **Global Reader** account (read-only, no app registration required), gathers ~20 datasets across Entra ID, Exchange Online, SharePoint, OneDrive, Teams and Intune, and refreshes a **single-page Excel dashboard** where every KPI is a live formula : nothing is typed by hand.
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.1%20%7C%207.4%2B-5391FE)
 ![Excel](https://img.shields.io/badge/Excel-Microsoft%20365-217346)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-> ![M365 Audit Dashboard — one-page view](docs/dashboard-sample.png)
+> ![M365 Audit Dashboard : one-page view](docs/dashboard-sample.png)
 *Dashboard filled with synthetic demo data.*
 
 ---
@@ -20,7 +20,7 @@ When acquiring a company, you need a fast, factual picture of its Microsoft 365 
 This project turns that into a repeatable tool:
 
 - **One workbook** (`M365_Audit_Dashboard.xlsm`) with a **RUN AUDIT** button.
-- **One collector** (`Collect-M365Audit.ps1`) — interactive browser sign-in, delegated permissions, works with a plain **Global Reader** role provided by the seller.
+- **One collector** (`Collect-M365Audit.ps1`) : interactive browser sign-in, delegated permissions, works with a plain **Global Reader** role provided by the seller.
 - **100% read-only.** The tool never writes anything to the tenant.
 - **Everything stays local.** Data is exported to a `DATA\` folder next to the workbook; nothing is sent anywhere else.
 
@@ -48,7 +48,7 @@ The dashboard keeps a five-pillar, at-a-glance layout: **Entra | Exchange | Shar
 | Teams | Teams with visibility and member counts, 90-day team & user activity |
 | Intune | Managed devices, compliance state, last sync; cross-checked with Entra device records |
 
-Raw CSVs are kept as evidence — useful for due-diligence documentation.
+Raw CSVs are kept as evidence : useful for due-diligence documentation.
 
 ## Requirements
 
@@ -59,7 +59,7 @@ Raw CSVs are kept as evidence — useful for due-diligence documentation.
 
 **In the target tenant (one-time, ask the seller's admin)**
 1. A **Global Reader** account for you.
-2. **Admin consent** for the "Microsoft Graph Command Line Tools" delegated scopes used by the collector — several, like `Reports.Read.All`, are admin-consent-only. Easiest way: a Global Admin of the target tenant runs `Collect-M365Audit.ps1` once and ticks **"Consent on behalf of your organization"** on the sign-in consent page.
+2. **Admin consent** for the "Microsoft Graph Command Line Tools" delegated scopes used by the collector : several, like `Reports.Read.All`, are admin-consent-only. Easiest way: a Global Admin of the target tenant runs `Collect-M365Audit.ps1` once and ticks **"Consent on behalf of your organization"** on the sign-in consent page.
 
    > User.Read.All, Group.Read.All, GroupMember.Read.All, Directory.Read.All,
    > Organization.Read.All, Application.Read.All, Policy.Read.All,
@@ -68,14 +68,14 @@ Raw CSVs are kept as evidence — useful for due-diligence documentation.
    > DeviceManagementManagedDevices.Read.All, RoleManagement.Read.Directory,
    > Domain.Read.All, SharePointTenantSettings.Read.All, Team.ReadBasic.All
 
-3. Optional: untick **"Display concealed user, group, and site names in all reports"** (M365 admin center → Settings → Org settings → Reports). If concealment stays on, usage reports are pseudonymized and per-user joins degrade — the collector detects and reports this.
+3. Optional: untick **"Display concealed user, group, and site names in all reports"** (M365 admin center → Settings → Org settings → Reports). If concealment stays on, usage reports are pseudonymized and per-user joins degrade : the collector detects and reports this.
 4. Optional module: an audit-read role (e.g. **View-Only Audit Logs**) if you want the external file-access report.
 
 ## Unblock the files (first time only)
 
-Windows tags everything downloaded from the internet — the GitHub ZIP included — with a "Mark of the Web". Excel then refuses to run the macros and shows a red banner: *"Microsoft has blocked macros from running because the source of this file is untrusted"*. PowerShell may refuse the scripts for the same reason.
+Windows tags everything downloaded from the internet : the GitHub ZIP included,  with a "Mark of the Web". Excel then refuses to run the macros and shows a red banner: *"Microsoft has blocked macros from running because the source of this file is untrusted"*. PowerShell may refuse the scripts for the same reason.
 
-Easiest fix — unblock the ZIP **before** extracting it:
+Easiest fix : unblock the ZIP **before** extracting it:
 
 1. Right-click the downloaded ZIP → **Properties**.
 2. On the General tab, tick **Unblock** → **OK**.
@@ -93,12 +93,12 @@ Reference: Microsoft, ["A potentially dangerous macro has been blocked"](https:/
 
 ## Quick start
 
-1. Download the release ZIP (or clone), unblock it, extract it to a **local** folder (avoid OneDrive-synced folders — slower, and Excel re-stamps cloud paths into the file).
+1. Download the release ZIP (or clone), unblock it, extract it to a **local** folder (avoid OneDrive-synced folders : slower, and Excel re-stamps cloud paths into the file).
 2. Open `M365_Audit_Dashboard.xlsm`, enable macros.
-3. On the **Config** sheet: tenant name, activity thresholds, and your license unit prices (the only thing you ever type by hand — prices exist in no tenant API).
+3. On the **Config** sheet: tenant name, activity thresholds, and your license unit prices (the only thing you ever type by hand : prices exist in no tenant API).
 4. Click **RUN AUDIT** on the Dashboard.
 5. A PowerShell window opens; sign in twice in the browser (Microsoft Graph, then Exchange Online) with the Global Reader account.
-6. Wait — a typical 600-mailbox tenant takes 10–20 minutes. Progress shows in the PowerShell window; Excel shows elapsed time in the status bar (press ESC in Excel to stop waiting — the collector keeps running and you can import later with Alt+F8 → `ImportAll`).
+6. Wait : a typical 600-mailbox tenant takes 10–20 minutes. Progress shows in the PowerShell window; Excel shows elapsed time in the status bar (press ESC in Excel to stop waiting, the collector keeps running and you can import later with Alt+F8 → `ImportAll`).
 7. When it finishes, the workbook imports everything and shows a summary. Check the **RunInfo** sheet for per-dataset status and warnings.
 
 Run it again any time: `DATA\` is overwritten, the dashboard refreshes, nothing accumulates.
